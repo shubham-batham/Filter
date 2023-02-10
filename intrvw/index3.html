@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        img {
+            height: 400px;
+            width : 400px
+        }
+        #cart {
+      border: 2px solid;
+      border-radius: 5px;
+      padding: 9px;
+      background-color: grey;
+    }
+
+    </style>
+</head>
+<body>
+   <div id="container">
+   </div> 
+</body>
+<script>
+    
+      fetch("https://fakestoreapi.com/products")
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          console.log(data);
+          const content = document.createDocumentFragment();
+          for (let i = 0; i < data.length; i++) {
+            const title = data[i].title;
+            const price = data[i].price;
+
+            const category = data[i].category;
+            const image = data[i].image;
+
+            const box = document.createElement("div");
+            box.id = "cart";
+            box.innerHTML = `
+           
+                <p>Title:<span>${title}</span></p>
+                <p>Price:<span>${price}</span></p>
+                
+                <p>Category:<span>${category}</span></p>
+                
+                <img src="${image}" alt="">
+              `;
+            content.append(box);
+          }
+          const parent = document.getElementById("container");
+          parent.append(content);
+        });
+
+
+</script>
+</html>
